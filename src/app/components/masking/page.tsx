@@ -1,6 +1,7 @@
 import { ShowcaseLayout } from "@/components/showcase/showcase-layout";
 import { Card, CardContent, CardDescription, CardHeader, CardTitle } from "@/components/ui/card";
 import { Button } from "@/components/ui/button";
+import SawtoothMasking from "@/components/masking/sawtooth-masking";
 
 /**
  * SAMPLE COMPONENT SHOWCASE PAGE
@@ -42,9 +43,7 @@ export default function SamplePage() {
           <CardContent>
             {/* Your component example here */}
             <div className="space-y-4">
-              <p className="text-sm text-zinc-600 dark:text-zinc-400">
-                Example output will appear here
-              </p>
+              <SawtoothMasking />
             </div>
           </CardContent>
         </Card>
