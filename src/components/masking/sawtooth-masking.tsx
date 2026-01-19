@@ -3,28 +3,61 @@ import Image from "next/image";
 import bgSample from "../../../public/background/bg-sample.webp";
 import gsap from "gsap";
 import { useGSAP } from "@gsap/react";
+import { useRef } from "react";
+import { GSDevTools } from "gsap/GSDevTools";
+gsap.registerPlugin(GSDevTools);
 
 const SawtoothMasking = () => {
+  const barsMaskRef = useRef<HTMLDivElement>(null);
+  const imageRef = useRef<HTMLImageElement>(null);
+
   useGSAP(() => {
-    gsap.to(".bars-mask", {
-      width: "100%",
-      duration: 1,
-      ease: "power2.inOut",
+    const barClip = barsMaskRef.current?.querySelector("#barsClip");
+    if (!barClip) return;
+
+    gsap.set(barClip.querySelectorAll("rect"), {
+      transformOrigin: gsap.utils.wrap(['50% 60%', '50% 40%']),
+      scaleY: 0,
+      y: gsap.utils.wrap([-0.1, 0.1])
     });
+
+    const barTimeline = gsap.timeline()
+
+    barTimeline.to(barClip.querySelectorAll("rect"), {
+      scaleY: 1,
+      duration: 1,
+      ease: "sine.inOut",
+      stagger: {
+        each: 0.01,
+        from: "center",
+        ease: "none"
+      }
+    })
+
+    barTimeline.to(barClip.querySelectorAll("rect"), {
+      y: 0,
+      duration: 1,
+      ease: "power4.in",
+      stagger: {
+        each: 0.01,
+        from: "center",
+        ease: "power4.in"
+      }
+    }, 0)
+
+    barTimeline.to(".hero-image", {
+      scale: 1.4,
+      duration: barTimeline.duration()
+    }, 0)
+
+    GSDevTools.create({ animations: barTimeline, name: "Sawtooth Masking", color: "blue", width: "100%", height: "100%", showPanel: true, showVariables: true });
   });
 
   return (
-    <div className="relative w-full h-[500px]">
-      <Image
-        src={bgSample}
-        alt="Background Sample"
-        width={1920}
-        height={1080}
-        className="w-full h-full object-cover absolute top-0 left-0"
-      />
+    <div ref={barsMaskRef} className="relative w-full h-[500px] overflow-hidden bg-[#18222e] rounded-lg">
 
       {/* Inline SVG for clipPath - this is the best approach for clipPath definitions */}
-      <svg width="0" height="0" viewBox="0 0 1 1" aria-hidden="true" className="absolute">
+      <svg width="0" height="0" viewBox="0 0 1 1" aria-hidden="true" >
         <defs>
           <clipPath id="barsClip" clipPathUnits="objectBoundingBox">
             <rect x="0.00" y="0" width="0.05" height="1" />
@@ -51,9 +84,14 @@ const SawtoothMasking = () => {
         </defs>
       </svg>
 
+      {/* <div className="absolute inset-0 h-px top-1/2 transform -translate-y-1/2 bg-red-500 dark:bg-blue-500 z-30" /> */}
+
       <div
-        className="bars-mask absolute inset-0 bg-zinc-900 dark:bg-zinc-100"
-        style={{ clipPath: "url(#barsClip)" }}
+        className="bars-mask w-full h-full bg-cover bg-center z-20"
+        style={{
+          clipPath: "url(#barsClip)",
+          backgroundImage: "url(/background/bg-sample.webp)"
+        }}
       />
     </div>
   );
