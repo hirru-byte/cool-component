@@ -4,6 +4,7 @@ const nextConfig: NextConfig = {
   // Webpack configuration for SVGR
   // Note: Next.js 16 uses Turbopack by default, but SVGR requires webpack
   // Use `yarn dev` (which uses --webpack flag) for SVGR to work
+  turbopack: {}, // Empty config to silence Turbopack warning when using webpack
   webpack(config) {
     // Grab the existing rule that handles SVG imports
     const fileLoaderRule = config.module.rules.find((rule: any) =>

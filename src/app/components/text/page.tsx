@@ -1,5 +1,7 @@
+"use client";
 import { ShowcaseLayout } from "@/components/showcase/showcase-layout";
 import { Card, CardContent, CardDescription, CardHeader, CardTitle } from "@/components/ui/card";
+import WonJText from "@/components/text/won-j-text";
 
 /**
  * SAMPLE COMPONENT SHOWCASE PAGE
@@ -41,7 +43,7 @@ export default function TextPage() {
           <CardContent>
             {/* Your component example here */}
             <div className="space-y-4">
-
+              <WonJText />
             </div>
           </CardContent>
         </Card>

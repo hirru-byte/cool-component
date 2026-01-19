@@ -9,6 +9,7 @@ const components = [
   { name: "Card", href: "/components/card" },
   { name: "Badge", href: "/components/badge" },
   { name: "Masking", href: "/components/masking" },
+  { name: "Text Animations", href: "/components/text" },
   { name: "Sample Template", href: "/components/sample" },
 ];
 
