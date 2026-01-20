@@ -1,12 +1,17 @@
 import { useGSAP } from "@gsap/react";
 import gsap from "gsap";
 import { useRef } from "react";
-import { GSDevTools } from "gsap/GSDevTools";
 import { Flip } from "gsap/dist/Flip";
+import { cn } from "@/lib/utils";
 
-gsap.registerPlugin(GSDevTools, Flip);
+gsap.registerPlugin(Flip);
 
-const WonJText = () => {
+interface WonJTextProps {
+  text?: string[];
+  textClassName?: string;
+}
+
+const WonJText = ({ text = ["educator", "coach", "mentor", "consultant"], textClassName = "" }: WonJTextProps) => {
   const textRef = useRef<HTMLDivElement>(null);
   const containerRef = useRef<HTMLDivElement>(null);
 
@@ -54,21 +59,24 @@ const WonJText = () => {
     textTimeline.add(tween);
     textTimeline.restart();
 
-    GSDevTools.create({ container: ".hero-content", animation: textTimeline })
+    textRef.current?.addEventListener("click", () => {
+      textTimeline.restart();
+    });
 
     return () => {
       textRef.current?.classList.replace("items-start", "items-center");
+      textRef.current?.removeEventListener("click", () => {
+        textTimeline.restart();
+      });
     };
   });
 
   return (
-    <div ref={containerRef} className="hero-container relative w-full flex justify-center items-center overflow-hidden bg-gray-700 rounded-lg p-4 pb-20 h-[300px]">
-      <div className="hero-content w-full h-full absolute top-0 left-0"></div>
+    <div ref={containerRef} className="hero-container relative w-full flex justify-center items-center overflow-hidden bg-gray-700 rounded-lg p-4 h-[200px] cursor-pointer">
       <div ref={textRef} className="hero w-full flex flex-col justify-center items-center text-4xl font-bold uppercase">
-        <h2 className="block opacity-0">educator</h2>
-        <h2 className="block opacity-0">coach</h2>
-        <h2 className="block opacity-0">mentor</h2>
-        <h2 className="block opacity-0">consultant</h2>
+        {text.map((item) => (
+          <h2 className={cn("block opacity-0", textClassName)} key={item}>{item}</h2>
+        ))}
       </div>
     </div>
   );

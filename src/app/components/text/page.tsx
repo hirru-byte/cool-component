@@ -2,6 +2,7 @@
 import { ShowcaseLayout } from "@/components/showcase/showcase-layout";
 import { Card, CardContent, CardDescription, CardHeader, CardTitle } from "@/components/ui/card";
 import WonJText from "@/components/text/won-j-text";
+import CounterText from "@/components/text/counter-text";
 
 /**
  * SAMPLE COMPONENT SHOWCASE PAGE
@@ -32,18 +33,34 @@ export default function TextPage() {
           </p>
         </div>
 
-        {/* Basic Example Section */}
+        {/* Won J Text Section */}
         <Card>
           <CardHeader>
-            <CardTitle>Text Animation 1</CardTitle>
+            <CardTitle>Won J Text</CardTitle>
             <CardDescription>
-              A text animation using GSAP.
+              A text animation using GSAP to create a won j text effect.
             </CardDescription>
           </CardHeader>
           <CardContent>
             {/* Your component example here */}
             <div className="space-y-4">
-              <WonJText />
+              <WonJText textClassName="text-2xl font-bold uppercase" />
+            </div>
+          </CardContent>
+        </Card>
+
+        {/* Counter Text Section */}
+        <Card>
+          <CardHeader>
+            <CardTitle>Counter Text</CardTitle>
+            <CardDescription>
+              A text animation using GSAP to create a counter text effect.
+            </CardDescription>
+          </CardHeader>
+          <CardContent>
+            {/* Your component example here */}
+            <div className="space-y-4">
+              <CounterText />
             </div>
           </CardContent>
         </Card>
