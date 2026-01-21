@@ -1,6 +1,7 @@
 import { ShowcaseLayout } from "@/components/showcase/showcase-layout";
 import { Card, CardContent, CardDescription, CardFooter, CardHeader, CardTitle } from "@/components/ui/card";
 import { Button } from "@/components/ui/button";
+import ExpandCard from "@/components/card/expand-card";
 
 export default function CardPage() {
   return (
@@ -15,15 +16,13 @@ export default function CardPage() {
 
         <Card>
           <CardHeader>
-            <CardTitle>Basic Card</CardTitle>
+            <CardTitle>Expand Card</CardTitle>
             <CardDescription>
               A simple card with header and content.
             </CardDescription>
           </CardHeader>
           <CardContent>
-            <p className="text-sm text-zinc-600 dark:text-zinc-400">
-              This is the card content area. You can put any content here.
-            </p>
+            <ExpandCard />
           </CardContent>
         </Card>
 
@@ -57,7 +56,7 @@ export default function CardPage() {
           <CardContent>
             <pre className="rounded-md bg-zinc-100 p-4 dark:bg-zinc-900">
               <code className="text-sm">
-{`import {
+                {`import {
   Card,
   CardHeader,
   CardTitle,
